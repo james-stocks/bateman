@@ -6,6 +6,10 @@ find_package(BISON REQUIRED)
 # Find LLVM
 find_package(LLVM REQUIRED CONFIG)
 
+# Include LLVM directories
+include_directories(${LLVM_INCLUDE_DIRS})
+add_definitions(${LLVM_DEFINITIONS})
+
 # Find ZLIB
 find_package(ZLIB REQUIRED)
 

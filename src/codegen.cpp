@@ -39,8 +39,12 @@ llvm::Value* VarDeclNode::codegen(llvm::IRBuilder<>& builder, llvm::Module& modu
 }
 
 llvm::Value* RaiseNode::codegen(llvm::IRBuilder<>& builder, llvm::Module& module) {
-    auto throwFuncCallee = module.getOrInsertFunction("bateman_throw",
-        llvm::FunctionType::get(builder.getVoidTy(), {llvm::Type::getInt8PtrTy(module.getContext())}, false));
+    auto& context = module.getContext();
+    auto* int8Type = llvm::Type::getInt8Ty(context); // Explicitly get the pointer type
+    auto throwFuncCallee = module.getOrInsertFunction(
+        "bateman_throw",
+        llvm::FunctionType::get(builder.getVoidTy(), llvm::ArrayRef<llvm::Type*>{int8Type}, false)
+    );
     auto* throwFunc = llvm::cast<llvm::Function>(throwFuncCallee.getCallee());
     auto* str = builder.CreateGlobalStringPtr(message);
     builder.CreateCall(throwFunc, {str});
