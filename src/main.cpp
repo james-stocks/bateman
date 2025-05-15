@@ -146,12 +146,13 @@ int main(int argc, char* argv[]) {
     module->print(llvm::outs(), nullptr);
 
     // Link object file into executable
+    std::string exe_name = (argc > 2) ? argv[2] : "resulting_executable";
     // TODO: Executable name should be passed as an argument
     std::string linkCommand;
     #ifdef _WIN32
-        linkCommand = "clang output.o -o resulting_executable.exe";
+        linkCommand = "clang output.o -o " + exe_name + "".exe";
     #else
-        linkCommand = "clang -pie output.o -o resulting_executable";
+        linkCommand = "clang -pie output.o -o " + exe_name;
     #endif
 
     if (system(linkCommand.c_str()) != 0) {
@@ -159,6 +160,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::cout << "Executable generated: " << (argc > 2 ? argv[2] : "resulting_executable") << std::endl;
+    std::cout << "Executable generated: " << exe_name << std::endl;
     return 0;
 }

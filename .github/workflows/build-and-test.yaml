@@ -1,0 +1,41 @@
+name: Build and Test Bateman
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential flex bison llvm-18-dev zlib1g-dev clang-18
+          sudo apt-get install -y libfl-dev  # Ensure Flex development files are installed
+
+      - name: Configure CMake
+        run: |
+          mkdir -p build
+          cmake -S . -B build -DCMAKE_CXX_FLAGS="-I/usr/include" -DLLVM_DIR=/usr/lib/llvm-18/cmake
+
+      - name: Build Bateman
+        run: |
+          cmake --build build --config Release
+
+      - name: Compile test/dorsia.bateman
+        run: |
+          build/bateman test/dorsia.bateman output_binary
+
+      - name: Run the compiled binary
+        run: |
+          ls -ltra
+          ./output_binary
