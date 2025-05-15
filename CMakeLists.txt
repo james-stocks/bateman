@@ -29,7 +29,37 @@ add_executable(bateman
 target_include_directories(bateman PRIVATE ${LLVM_INCLUDE_DIRS} ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/src /usr/include)
 
 # Link libraries
-llvm_map_components_to_libnames(LLVM_LIBS Core Support X86)
+llvm_map_components_to_libnames(LLVM_LIBS
+  Core
+  Support
+  Target
+  CodeGen
+  TargetParser
+  X86
+  AArch64
+  AMDGPU
+  ARM
+  AVR
+  BPF
+  Hexagon
+  Lanai
+  LoongArch
+  Mips
+  MSP430
+  NVPTX
+  PowerPC
+  RISCV
+  Sparc
+  SystemZ
+  VE
+  WebAssembly
+  XCore
+  M68k
+  Xtensa
+  MC
+  AsmPrinter
+  AsmParser
+)
 target_link_libraries(bateman PRIVATE ${LLVM_LIBS} ZLIB::ZLIB)
 
 # Ensure lexer.cpp is treated as C++

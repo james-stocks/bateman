@@ -53,11 +53,25 @@ llvm::Value* RaiseNode::codegen(llvm::IRBuilder<>& builder, llvm::Module& module
 }
 
 llvm::Value* PrintNode::codegen(llvm::IRBuilder<>& builder, llvm::Module& module) {
+    // Declare bateman_print: void (i8*)
     auto printFuncCallee = module.getOrInsertFunction("bateman_print",
-        llvm::FunctionType::get(builder.getVoidTy(), {builder.getInt32Ty()}, false));
+        llvm::FunctionType::get(builder.getVoidTy(),
+                               {llvm::PointerType::get(builder.getInt8Ty(), 0)},
+                               false));
     auto* printFunc = llvm::cast<llvm::Function>(printFuncCallee.getCallee());
+
+    // Generate code for the expression (should return a ptr to a string)
     auto* value = expr->codegen(builder, module);
-    builder.CreateCall(printFunc, {value});
+    if (!value->getType()->isPointerTy()) {
+        llvm::errs() << "Error: PrintNode expects a string pointer\n";
+        return nullptr;
+    }
+
+    // Ensure the value is an i8* (cast if necessary)
+    auto* strPtr = builder.CreateBitCast(value, llvm::PointerType::get(builder.getInt8Ty(), 0));
+
+    // Create the call to bateman_print
+    builder.CreateCall(printFunc, {strPtr});
     return nullptr;
 }
 
