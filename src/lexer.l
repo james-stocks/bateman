@@ -6,7 +6,7 @@
 
 %option c++
 %option noyywrap
-%x KEYWORD_I KEYWORD_LETS KEYWORD_DO KEYWORD_THEIR KEYWORD_IM KEYWORD_FEED KEYWORD_COOL KEYWORD_CAN
+%x KEYWORD_I KEYWORD_LETS KEYWORD_DO KEYWORD_THEIR KEYWORD_IM KEYWORD_FEED KEYWORD_COOL KEYWORD_TELL KEYWORD_CAN
 
 %%
 
@@ -35,6 +35,10 @@
 "Feed"                  { BEGIN(KEYWORD_FEED); }
 <KEYWORD_FEED>" me a stray cat" { BEGIN(INITIAL); return INPUT; }
 <KEYWORD_FEED>[ \t\n]   { BEGIN(INITIAL); yylval.str = new std::string("Feed"); return IDENT; }
+
+"Tell"                  { BEGIN(KEYWORD_TELL); }
+<KEYWORD_TELL>" him I'm at lunch".* { BEGIN(INITIAL); /* ignore comment */ }
+<KEYWORD_TELL>[ \t\n]   { BEGIN(INITIAL); yylval.str = new std::string("Tell"); return IDENT; }
 
 "Cool"                  { BEGIN(KEYWORD_COOL); }
 <KEYWORD_COOL>" it with the anti-Semitic remarks".* { BEGIN(INITIAL); /* ignore comment */ }
