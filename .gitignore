@@ -1,2 +1,9 @@
 .vscode/
 build/
+
+# TODO: this should go in a temp dir
+output.o
+
+# TODO: the consumer's built bin should not be named bateman
+bateman
+resulting_executable
