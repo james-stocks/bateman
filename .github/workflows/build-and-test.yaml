@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake build-essential flex bison llvm-18-dev zlib1g-dev clang-18
+          sudo apt-get install -y cmake build-essential flex bison llvm-18-dev zlib1g-dev libzstd-dev clang-18
           sudo apt-get install -y libfl-dev  # Ensure Flex development files are installed
 
       - name: Configure CMake
@@ -39,3 +39,12 @@ jobs:
         run: |
           ls -ltra
           ./output_binary
+
+      - name: Compile scoping regression test
+        run: |
+          build/bateman test/scoping.bateman build/scoping_binary
+
+      - name: Run scoping regression test
+        run: |
+          output="$(build/scoping_binary)"
+          test "$output" = "10"
