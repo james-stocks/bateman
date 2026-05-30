@@ -15,5 +15,9 @@ $(CMAKE_BUILD_DIR):
 clean:
 	rm -rf $(CMAKE_BUILD_DIR)
 
+# Run all tests
+test: all
+	bash test/run_tests.sh
+
 # Rebuild the project (clean + build)
 rebuild: clean all

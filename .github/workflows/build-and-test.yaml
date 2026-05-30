@@ -19,32 +19,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake build-essential flex bison llvm-18-dev zlib1g-dev libzstd-dev clang-18
-          sudo apt-get install -y libfl-dev  # Ensure Flex development files are installed
+          sudo apt-get install -y cmake build-essential flex bison llvm-18-dev zlib1g-dev clang-18 libfl-dev libzstd-dev
 
       - name: Configure CMake
         run: |
-          mkdir -p build
           cmake -S . -B build -DCMAKE_CXX_FLAGS="-I/usr/include" -DLLVM_DIR=/usr/lib/llvm-18/cmake
 
-      - name: Build Bateman
-        run: |
-          cmake --build build --config Release
-
-      - name: Compile test/dorsia.bateman
-        run: |
-          build/bateman test/dorsia.bateman output_binary
-
-      - name: Run the compiled binary
-        run: |
-          ls -ltra
-          ./output_binary
-
-      - name: Compile scoping regression test
-        run: |
-          build/bateman test/scoping.bateman build/scoping_binary
-
-      - name: Run scoping regression test
-        run: |
-          output="$(build/scoping_binary)"
-          test "$output" = "10"
+      - name: Build and test
+        run: make test
