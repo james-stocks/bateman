@@ -85,6 +85,18 @@ int main(int argc, char* argv[]) {
                                             true);
     module->getOrInsertFunction("printf", printfTy);
 
+    // Declare scanf
+    auto scanfTy = llvm::FunctionType::get(builder.getInt32Ty(),
+                                           {llvm::PointerType::get(builder.getInt8Ty(), 0)},
+                                           true);
+    module->getOrInsertFunction("scanf", scanfTy);
+
+    // Declare exit
+    auto exitTy = llvm::FunctionType::get(builder.getVoidTy(),
+                                          {builder.getInt32Ty()},
+                                          false);
+    module->getOrInsertFunction("exit", exitTy);
+
     // Define bateman_print: void (i8*)
     auto printTy = llvm::FunctionType::get(builder.getVoidTy(),
         {llvm::PointerType::get(builder.getInt8Ty(), 0)},
@@ -95,6 +107,30 @@ int main(int argc, char* argv[]) {
     auto strArg = printFn->getArg(0);
     printBuilder.CreateCall(module->getFunction("printf"), {strArg});
     printBuilder.CreateRetVoid();
+
+    // Define bateman_read: int ()
+    auto readTy = llvm::FunctionType::get(builder.getInt32Ty(), false);
+    auto readFn = llvm::Function::Create(readTy, llvm::Function::ExternalLinkage, "bateman_read", module.get());
+    auto readEntryBB = llvm::BasicBlock::Create(context, "entry", readFn);
+    llvm::IRBuilder<> readBuilder(readEntryBB);
+    auto readValue = readBuilder.CreateAlloca(builder.getInt32Ty(), nullptr, "value");
+    auto readFormat = readBuilder.CreateGlobalStringPtr("%d");
+    readBuilder.CreateCall(module->getFunction("scanf"), {readFormat, readValue});
+    auto readResult = readBuilder.CreateLoad(builder.getInt32Ty(), readValue);
+    readBuilder.CreateRet(readResult);
+
+    // Define bateman_throw: void (i8*)
+    auto throwTy = llvm::FunctionType::get(builder.getVoidTy(),
+        {llvm::PointerType::get(builder.getInt8Ty(), 0)},
+        false);
+    auto throwFn = llvm::Function::Create(throwTy, llvm::Function::ExternalLinkage, "bateman_throw", module.get());
+    auto throwEntryBB = llvm::BasicBlock::Create(context, "entry", throwFn);
+    llvm::IRBuilder<> throwBuilder(throwEntryBB);
+    auto throwMessageArg = throwFn->getArg(0);
+    auto throwFormat = throwBuilder.CreateGlobalStringPtr("Hey, Paul! Exception: %s\n");
+    throwBuilder.CreateCall(module->getFunction("printf"), {throwFormat, throwMessageArg});
+    throwBuilder.CreateCall(module->getFunction("exit"), {llvm::ConstantInt::get(builder.getInt32Ty(), 1)});
+    throwBuilder.CreateUnreachable();
 
     /* END OF FUNCTION IMPLEMENTATIONS */
 

@@ -21,6 +21,14 @@ public:
     llvm::Value* codegen(llvm::IRBuilder<>& builder, llvm::Module& module) override;
 };
 
+class AssignmentNode : public ASTNode {
+    std::string name;
+    ASTNode* expr;
+public:
+    AssignmentNode(const std::string& name, ASTNode* expr) : name(name), expr(expr) {}
+    llvm::Value* codegen(llvm::IRBuilder<>& builder, llvm::Module& module) override;
+};
+
 class FuncDeclNode : public ASTNode {
     std::string name;
     std::vector<std::string> params;
@@ -35,6 +43,14 @@ class RaiseNode : public ASTNode {
     std::string message;
 public:
     RaiseNode(const std::string& msg) : message(msg) {}
+    llvm::Value* codegen(llvm::IRBuilder<>& builder, llvm::Module& module) override;
+};
+
+class IfNode : public ASTNode {
+    ASTNode* condition;
+    std::vector<ASTNode*> body;
+public:
+    IfNode(ASTNode* condition, const std::vector<ASTNode*>& body) : condition(condition), body(body) {}
     llvm::Value* codegen(llvm::IRBuilder<>& builder, llvm::Module& module) override;
 };
 
