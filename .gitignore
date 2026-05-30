@@ -7,3 +7,5 @@ output.o
 # TODO: the consumer's built bin should not be named bateman
 bateman
 resulting_executable
+output_binary
+demo_out
