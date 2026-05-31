@@ -9,9 +9,16 @@
 #include <llvm/Support/FileSystem.h>
 #include <llvm/MC/TargetRegistry.h>
 #include <llvm/IR/LegacyPassManager.h> // For legacy pass manager
+#include "ast.hpp"
 #include "globals.hpp"
 #include "parser.hpp"
 #include <FlexLexer.h>
+#include <cstring>
+#include <vector>
+
+#ifndef BATEMAN_VERSION
+#define BATEMAN_VERSION "unknown"
+#endif
 
 extern int yydebug;
 
@@ -29,6 +36,13 @@ int yylex() {
 }
 
 int main(int argc, char* argv[]) {
+    for (int i = 1; i < argc; ++i) {
+        if (std::strcmp(argv[i], "--version") == 0) {
+            std::cout << "bateman " << BATEMAN_VERSION << std::endl;
+            return 0;
+        }
+    }
+
     // Enable debug output for parser
     // TODO: this should be a trace debug option
     yydebug = 1;
@@ -134,8 +148,48 @@ int main(int argc, char* argv[]) {
 
     /* END OF FUNCTION IMPLEMENTATIONS */
 
+    std::vector<ASTNode*> funcDecls;
+    std::vector<ASTNode*> topLevelStmts;
     for (auto* node : *g_root) {
+        if (dynamic_cast<FuncDeclNode*>(node)) {
+            funcDecls.push_back(node);
+        } else {
+            topLevelStmts.push_back(node);
+        }
+    }
+
+    if (funcDecls.empty() && topLevelStmts.empty()) {
+        std::cerr << "Error: Empty program (no functions or top-level statements)." << std::endl;
+        return 1;
+    }
+
+    for (auto* node : funcDecls) {
         node->codegen(builder, *module);
+    }
+
+    if (!topLevelStmts.empty()) {
+        if (module->getFunction("main")) {
+            std::cerr << "Error: Top-level statements cannot be used with a function named main." << std::endl;
+            return 1;
+        }
+        auto* mainFn = llvm::Function::Create(
+            llvm::FunctionType::get(builder.getInt32Ty(), false),
+            llvm::Function::ExternalLinkage, "main", module.get());
+        auto* entryBB = llvm::BasicBlock::Create(context, "entry", mainFn);
+        builder.SetInsertPoint(entryBB);
+        for (auto* node : topLevelStmts) {
+            node->codegen(builder, *module);
+        }
+        if (!builder.GetInsertBlock()->getTerminator()) {
+            builder.CreateRet(llvm::ConstantInt::get(builder.getInt32Ty(), 0));
+        }
+    } else if (!module->getFunction("main")) {
+        auto* mainFn = llvm::Function::Create(
+            llvm::FunctionType::get(builder.getInt32Ty(), false),
+            llvm::Function::ExternalLinkage, "main", module.get());
+        auto* entryBB = llvm::BasicBlock::Create(context, "entry", mainFn);
+        builder.SetInsertPoint(entryBB);
+        builder.CreateRet(llvm::ConstantInt::get(builder.getInt32Ty(), 0));
     }
 
     // Set up the target machine
