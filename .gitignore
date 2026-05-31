@@ -9,3 +9,6 @@ bateman
 resulting_executable
 output_binary
 demo_out
+
+vscode/bateman-syntax/node_modules/
+vscode/bateman-syntax/*.vsix

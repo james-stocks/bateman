@@ -1,0 +1,23 @@
+{
+    "comments": {
+        "lineComment": "Tell him I'm at lunch."
+    },
+    "brackets": [
+        ["{", "}"],
+        ["(", ")"]
+    ],
+    "autoClosingPairs": [
+        ["{", "}"],
+        ["(", ")"],
+        ["\"", "\""]
+    ],
+    "surroundingPairs": [
+        ["{", "}"],
+        ["(", ")"],
+        ["\"", "\""]
+    ],
+    "indentationRules": {
+        "increaseIndentPattern": "\\{\\s*$",
+        "decreaseIndentPattern": "^\\s*\\}"
+    }
+}
