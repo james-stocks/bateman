@@ -4,6 +4,10 @@ All notable changes to the "bateman-syntax" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.6]
+
+- Stop highlighting function names; leave them as plain text so they are not the same color as `I have to return some videotapes`.
+
 ## [0.0.5]
 
 - Highlight var-decl phrase with `storage.type.bateman` (themes style `storage.type`; `variable.declaration` is usually unstyled).
