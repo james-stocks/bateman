@@ -4,6 +4,12 @@ All notable changes to the "bateman-syntax" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.5]
+
+- Highlight var-decl phrase with `storage.type.bateman` (themes style `storage.type`; `variable.declaration` is usually unstyled).
+- Highlight the declared name after that phrase with `variable.other.bateman`.
+- Use `variable.language.bateman` for function names (distinct from the declaration keyword).
+
 ## [0.0.4]
 
 - Fix `Do you like Huey Lewis and the News?` highlighting (drop broken trailing `\\b` after `?`).

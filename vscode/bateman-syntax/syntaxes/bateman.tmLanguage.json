@@ -6,8 +6,12 @@
             "match": "I have to return some videotapes"
         },
         {
-            "name": "variable.declaration.bateman",
+            "name": "storage.type.bateman",
             "match": "I live in the American Gardens Building"
+        },
+        {
+            "name": "variable.other.bateman",
+            "match": "(?<=I live in the American Gardens Building\\s)[a-zA-Z_][a-zA-Z0-9_]*"
         },
         {
             "name": "keyword.control.conditional.bateman",
@@ -42,7 +46,7 @@
             "match": "Can you take two tonight\\?|Let's see Paul Allen's card"
         },
         {
-            "name": "entity.name.function.bateman",
+            "name": "variable.language.bateman",
             "match": "(?<=(I have to return some videotapes|Can you take two tonight\\?)\\s)[a-zA-Z_][a-zA-Z0-9_]*(?=\\s*\\()"
         },
         {

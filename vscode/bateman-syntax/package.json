@@ -2,7 +2,7 @@
   "name": "bateman-syntax",
   "displayName": "Bateman Syntax Highlighting",
   "description": "My god, it even has a watermark",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.100.0"
   },
