@@ -1,0 +1,25 @@
+{
+  "name": "bateman-syntax",
+  "displayName": "Bateman Syntax Highlighting",
+  "description": "My god, it even has a watermark",
+  "version": "0.0.3",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "bateman",
+      "aliases": ["Bateman", "bateman"],
+      "extensions": [".bateman"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "bateman",
+      "scopeName": "source.bateman",
+      "path": "./syntaxes/bateman.tmLanguage.json"
+    }]
+  }
+}

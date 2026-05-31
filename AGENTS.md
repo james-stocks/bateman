@@ -52,3 +52,10 @@ No databases, Docker Compose, or HTTP services. Only the build toolchain and pro
 ### After `git pull`
 
 If compiler sources under `src/` or `CMakeLists.txt` changed, rebuild with `make` or `cmake --build build`. The VM update script does not run builds automatically (see SetupVmEnvironment).
+
+### VS Code extension (`vscode/bateman-syntax/`)
+
+When you change `src/lexer.l` or `src/parser.y`, update the syntax extension in the same change:
+
+- `vscode/bateman-syntax/syntaxes/bateman.tmLanguage.json`
+- `vscode/bateman-syntax/language-configuration.json`
