@@ -31,11 +31,11 @@
         },
         {
             "name": "keyword.control.error.bateman",
-            "match": "This is not an exit"
+            "match": "I simply am not there"
         },
         {
             "name": "keyword.control.return.bateman",
-            "match": "I simply am not there"
+            "match": "This is not an exit"
         },
         {
             "name": "keyword.control.input.bateman",

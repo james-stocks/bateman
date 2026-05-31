@@ -13,7 +13,7 @@
 "I"                     { BEGIN(KEYWORD_I); yylval.str = new std::string("I"); }
 <KEYWORD_I>" have to return some videotapes" { BEGIN(INITIAL); delete yylval.str; return FUNCDECL; }
 <KEYWORD_I>" live in the American Gardens Building" { BEGIN(INITIAL); delete yylval.str; return VARDECL; }
-<KEYWORD_I>" simply am not there" { BEGIN(INITIAL); delete yylval.str; return RETURN; }
+<KEYWORD_I>" simply am not there" { BEGIN(INITIAL); delete yylval.str; return BREAK; }
 <KEYWORD_I>[ \t\n]      { BEGIN(INITIAL); return IDENT; }
 
 "Let's"                 { BEGIN(KEYWORD_LETS); }
@@ -49,7 +49,7 @@
 <KEYWORD_CAN>[ \t\n]    { BEGIN(INITIAL); yylval.str = new std::string("Can"); return IDENT; }
 
 "Hey, Paul!"            { return RAISE; }
-"This is not an exit"   { return BREAK; }
+"This is not an exit"   { return RETURN; }
 
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.str = new std::string(yytext); return IDENT; }
 [0-9]+                  { yylval.num = atoi(yytext); return NUMBER; }

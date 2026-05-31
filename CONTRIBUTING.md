@@ -17,3 +17,12 @@ make test
 ```
 
 See `AGENTS.md` for full environment setup on a fresh machine.
+
+## Versioning
+
+The language and compiler version live in [`VERSION`](VERSION) at the repo root (semver, currently `0.x` before 1.0).
+
+- Bump `VERSION` in pull requests when you make user-visible language or compiler changes.
+- After merge to `main`, [`.github/workflows/release-tag.yaml`](.github/workflows/release-tag.yaml) creates an annotated git tag `v<VERSION>` if that tag does not already exist.
+- Keep [`vscode/bateman-syntax/package.json`](vscode/bateman-syntax/package.json) aligned when grammar changes.
+- Check the compiler version with `build/bateman --version`.

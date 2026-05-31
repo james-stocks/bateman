@@ -69,6 +69,18 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# semicolon: two statements on one line (optional semicolons)
+# ---------------------------------------------------------------------------
+BIN="$TMPDIR/semicolon"
+compile test/semicolon.bateman "$BIN"
+OUTPUT="$("$BIN" 2>/dev/null)"
+if [ "$OUTPUT" = $'1\n2' ] || [ "$OUTPUT" = $'1\n2\n' ]; then
+    pass "semicolon: multiple statements on one line"
+else
+    fail "semicolon: multiple statements on one line" "got: $OUTPUT"
+fi
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 echo ""

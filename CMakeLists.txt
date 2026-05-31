@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(Bateman)
 
+file(READ "${CMAKE_SOURCE_DIR}/VERSION" BATEMAN_VERSION_RAW)
+string(STRIP "${BATEMAN_VERSION_RAW}" BATEMAN_VERSION)
+
 find_package(BISON REQUIRED)
 
 # Find LLVM
@@ -66,4 +69,4 @@ target_link_libraries(bateman PRIVATE ${LLVM_LIBS} ZLIB::ZLIB)
 set_source_files_properties(${CMAKE_BINARY_DIR}/lexer.cpp PROPERTIES LANGUAGE CXX)
 
 # Add this line to enable Bison debugging
-target_compile_definitions(bateman PRIVATE YYDEBUG=1)
+target_compile_definitions(bateman PRIVATE YYDEBUG=1 BATEMAN_VERSION="${BATEMAN_VERSION}")

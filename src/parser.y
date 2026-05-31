@@ -36,17 +36,17 @@ statement_list: statement { $$ = new std::vector<ASTNode*>(); $$->push_back($1);
 statement: func_decl | var_decl | assignment | raise | if_stmt | print | call | return_stmt | input_stmt
 func_decl: FUNCDECL IDENT LPAREN param_list RPAREN LBRACE statement_list RBRACE
            { $$ = new FuncDeclNode(*$2, *$4, *$7); delete $2; delete $4; delete $7; }
-var_decl: VARDECL IDENT SEMICOLON { $$ = new VarDeclNode(*$2); delete $2; }
-        | VARDECL IDENT EQUALS expr SEMICOLON { $$ = new VarDeclNode(*$2, $4); delete $2; }
-assignment: IDENT EQUALS expr SEMICOLON { $$ = new AssignmentNode(*$1, $3); delete $1; }
-raise: RAISE STRING SEMICOLON { $$ = new RaiseNode(*$2); delete $2; }
+var_decl: VARDECL IDENT opt_semicolon { $$ = new VarDeclNode(*$2); delete $2; }
+        | VARDECL IDENT EQUALS expr opt_semicolon { $$ = new VarDeclNode(*$2, $4); delete $2; }
+assignment: IDENT EQUALS expr opt_semicolon { $$ = new AssignmentNode(*$1, $3); delete $1; }
+raise: RAISE STRING opt_semicolon { $$ = new RaiseNode(*$2); delete $2; }
 if_stmt: IF LPAREN expr RPAREN LBRACE statement_list RBRACE
          { $$ = new IfNode($3, *$6); delete $6; }
 print: PRINT expr opt_semicolon { $$ = new PrintNode($2); }
-call: call_expr SEMICOLON { $$ = $1; }
+call: call_expr opt_semicolon { $$ = $1; }
 call_expr: CALL IDENT LPAREN expr_list RPAREN { $$ = new CallNode(*$2, *$4); delete $2; delete $4; }
-return_stmt: RETURN expr SEMICOLON { $$ = new ReturnNode($2); }
-input_stmt: INPUT IDENT SEMICOLON { $$ = new InputNode(*$2); delete $2; }
+return_stmt: RETURN expr opt_semicolon { $$ = new ReturnNode($2); }
+input_stmt: INPUT IDENT opt_semicolon { $$ = new InputNode(*$2); delete $2; }
 param_list: /* empty */ { $$ = new std::vector<std::string>(); }
           | IDENT { $$ = new std::vector<std::string>(); $$->push_back(*$1); delete $1; }
           | param_list COMMA IDENT { $1->push_back(*$3); $$ = $1; delete $3; }
