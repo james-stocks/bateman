@@ -1,15 +1,15 @@
 I have to return some videotapes safe_div(a, b) {
-    I live in the American Gardens Building result;
+    I live in the American Gardens Building result
     Do you like Huey Lewis and the News? (b == 0) {
-        Hey, Paul! "Division by zero";
+        Hey, Paul! "Division by zero"
     }
-    result = a / b;
-    This is not an exit result;
+    result = a / b
+    This is not an exit result
 }
 
-I live in the American Gardens Building x;
-I live in the American Gardens Building y;
-Feed me a stray cat x;  Tell him I'm at lunch. Read first number
-Feed me a stray cat y;  Tell him I'm at lunch. Read second number
-I live in the American Gardens Building result = Can you take two tonight? safe_div(x, y);
-Let's see Paul Allen's card result;
+I live in the American Gardens Building x
+I live in the American Gardens Building y
+Feed me a stray cat x   Tell him I'm at lunch. Read first number
+Feed me a stray cat y   Tell him I'm at lunch. Read second number
+I live in the American Gardens Building result = Can you take two tonight? safe_div(x, y)
+Let's see Paul Allen's card result
