@@ -3,43 +3,47 @@
     "patterns": [
         {
             "name": "keyword.control.function.bateman",
-            "match": "\\b(I have to return some videotapes)\\b"
+            "match": "I have to return some videotapes"
+        },
+        {
+            "name": "storage.type.bateman",
+            "match": "I live in the American Gardens Building"
+        },
+        {
+            "name": "variable.other.bateman",
+            "match": "(?<=I live in the American Gardens Building\\s)[a-zA-Z_][a-zA-Z0-9_]*"
         },
         {
             "name": "keyword.control.conditional.bateman",
-            "match": "\\b(Do you like Huey Lewis and the News\\?)\\b"
+            "match": "Do you like Huey Lewis and the News\\?"
         },
         {
             "name": "keyword.control.conditional.bateman",
-            "match": "\\b(Their early work was a little too new wave for my taste)\\b"
+            "match": "Their early work was a little too new wave for my taste"
         },
         {
             "name": "keyword.control.conditional.bateman",
-            "match": "\\b(I'm into murders and executions, mostly)\\b"
+            "match": "I'm into murders and executions, mostly"
         },
         {
             "name": "keyword.control.error.bateman",
-            "match": "\\b(Hey, Paul\\!)"
+            "match": "Hey, Paul!"
         },
         {
             "name": "keyword.control.error.bateman",
-            "match": "\\b(This is not an exit)\\b"
+            "match": "This is not an exit"
         },
         {
             "name": "keyword.control.return.bateman",
-            "match": "\\b(I simply am not there)\\b"
+            "match": "I simply am not there"
         },
         {
             "name": "keyword.control.input.bateman",
-            "match": "\\b(Feed me a stray cat)\\b"
+            "match": "Feed me a stray cat"
         },
         {
             "name": "keyword.control.output.bateman",
-            "match": "\\b(Can you take two tonight\\?|Let's see Paul Allen's card)\\b"
-        },
-        {
-            "name": "variable.language.bateman",
-            "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+            "match": "Can you take two tonight\\?|Let's see Paul Allen's card"
         },
         {
             "name": "string.quoted.double.bateman",
@@ -48,13 +52,9 @@
             "patterns": [
                 {
                     "name": "keyword.control.bateman",
-                    "match": "(I have to return some videotapes|Hey, Paul\\!|I live in the American Gardens Building|I simply am not there|Let's see Paul Allen's card|Do you like Huey Lewis and the News\\?|Their early work was a little too new wave for my taste|I'm into murders and executions, mostly|Feed me a stray cat|Cool it with the anti-Semitic remarks|Can you take two tonight\\?|This is not an exit)"
+                    "match": "(I have to return some videotapes|Hey, Paul!|I live in the American Gardens Building|I simply am not there|Let's see Paul Allen's card|Do you like Huey Lewis and the News\\?|Their early work was a little too new wave for my taste|I'm into murders and executions, mostly|Feed me a stray cat|Cool it with the anti-Semitic remarks|Can you take two tonight\\?|This is not an exit)"
                 }
             ]
-        },
-        {
-            "name": "variable.declaration.bateman",
-            "match": "\\b(I live in the American Gardens Building)\\b"
         },
         {
             "name": "comment.line.bateman",

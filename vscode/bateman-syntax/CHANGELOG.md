@@ -4,6 +4,22 @@ All notable changes to the "bateman-syntax" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.6]
+
+- Stop highlighting function names; leave them as plain text so they are not the same color as `I have to return some videotapes`.
+
+## [0.0.5]
+
+- Highlight var-decl phrase with `storage.type.bateman` (themes style `storage.type`; `variable.declaration` is usually unstyled).
+- Highlight the declared name after that phrase with `variable.other.bateman`.
+- Use `variable.language.bateman` for function names (distinct from the declaration keyword).
+
+## [0.0.4]
+
+- Fix `Do you like Huey Lewis and the News?` highlighting (drop broken trailing `\\b` after `?`).
+- Move `I live in the American Gardens Building` earlier; match without word boundaries.
+- Use `entity.name.function.bateman` for names after function declarations and calls.
+
 ## [0.0.3]
 
 - Restore original flat grammar and scope names from extension2 (fixes theme colors).
