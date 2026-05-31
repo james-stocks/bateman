@@ -4,6 +4,12 @@ All notable changes to the "bateman-syntax" extension will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.4]
+
+- Fix `Do you like Huey Lewis and the News?` highlighting (drop broken trailing `\\b` after `?`).
+- Move `I live in the American Gardens Building` earlier; match without word boundaries.
+- Use `entity.name.function.bateman` for names after function declarations and calls.
+
 ## [0.0.3]
 
 - Restore original flat grammar and scope names from extension2 (fixes theme colors).
